@@ -4,6 +4,7 @@ Refrigerator::Refrigerator()
 {
 	name = "—â‘ ŒÉ";
 	ViewStartString();
+	Start();
 }
 
 Refrigerator::~Refrigerator()
@@ -14,7 +15,7 @@ void Refrigerator::update()
 {
 	if (!isOn)
 	{
-		Start();
+		
 		return;
 	}
 

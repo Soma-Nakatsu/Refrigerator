@@ -1,7 +1,5 @@
 #pragma once
-#include <iostream>
-#include <string>
-using namespace std;
+#include "Include Heders.h"
 
 // 電化製品基底クラス
 class ElectricAppliances

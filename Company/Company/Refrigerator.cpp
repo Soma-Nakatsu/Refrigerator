@@ -2,9 +2,10 @@
 
 Refrigerator::Refrigerator()
 {
-	name = "冷蔵庫";
-	ViewStartString();
-	Start();
+	mName = "冷蔵庫";
+	mStartType = StartType::Open;
+
+	FirstProcess();
 }
 
 Refrigerator::~Refrigerator()
@@ -13,16 +14,37 @@ Refrigerator::~Refrigerator()
 
 void Refrigerator::update()
 {
-	if (!isOn)
+	string in = "";
+	cout << "入れるものを入力してください。Nakamiと入力すると中身が確認できます。" << endl;
+	cin >> in;
+
+	End(in);
+
+	// 終了入力がされていた場合は何もしない
+	if (isEnd)
 	{
-		
 		return;
 	}
 
-	string in = "";
-	cout << "何を入れますか？" << endl;
-	cin >> in;
-	cout << in + "を入れました！" << endl;
+	if (in == "Nakami" || in == "nakami")
+	{
+		showContents();
+	}
+	else
+	{
+		cout << in + "を入れました！" << endl;
+		mContents.emplace_back(in);
+	}
+}
 
-	End();
+void Refrigerator::showContents()
+{
+	cout << "冷蔵庫の中身：";
+
+	for (auto content : mContents)
+	{
+		cout << content  +", ";
+	}
+
+	cout << "\n";
 }

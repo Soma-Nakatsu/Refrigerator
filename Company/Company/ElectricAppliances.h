@@ -1,17 +1,9 @@
 #pragma once
-#include "Include Heders.h"
+#include "Utility.h"
 
 // 電化製品基底クラス
 class ElectricAppliances
 {
-public:
-	enum class StartType
-	{
-		None = 0,	// None
-		Open,		// Opne, Close
-		On,			// On, Off
-	};
-
 public:
 	ElectricAppliances();
 	~ElectricAppliances();
@@ -21,17 +13,14 @@ public:
 	void FirstProcess();
 
 	void Start();
-	void End(string in);
+	bool End(string in);
 
-	bool IsOn() { return isOn; }
-	bool ISEnd() { return isEnd; }
+	bool ISEnd() { return mIsEnd; }
 
 protected:
 	void ViewStartString();
 
-	bool isOn;
-	bool isEnd;
+	bool mIsEnd;
 
 	string mName;
-	StartType mStartType;
 };

@@ -1,4 +1,4 @@
-#include "Include Heders.h"
+#include "Utility.h"
 #include "Refrigerator.h"
 
 int main()
@@ -7,7 +7,7 @@ int main()
 
 	while (!refrigerator.ISEnd())
 	{
-		refrigerator.update();
+		refrigerator.Update();
 	}
 
 	std::cout << "ƒvƒƒOƒ‰ƒ€I—¹" << std::endl;

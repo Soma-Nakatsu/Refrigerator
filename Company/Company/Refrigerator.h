@@ -5,16 +5,29 @@
 class Refrigerator : public ElectricAppliances
 {
 public:
+	enum class MoveType
+	{
+		MOVE_TYPE_NONE = 0,		// 未動作
+		MOVE_TYPE_IN,			// 動作タイプ：物を入れる
+		MOVE_TYPE_OUT,			// 動作タイプ：中身を出す
+		MOVE_TYPE_CONFIRMATION	// 動作タイプ：中身を確認
+	};
+
+public:
 	Refrigerator();
 	~Refrigerator();
 
-	void update();
+	void Update();
 
 private:
-	void showContents();
+	// 動作タイプの変更
+	void ChangeMoveType();
+	// 冷蔵庫の中身を表示
+	void ShowContents();
 
 private:
-	vector<string> mContents;
+	MoveType		mMoveType;	// 動作タイプ
+	vector<string>	mContents;	// 冷蔵庫の中身リスト
 };
 
 // 入れたものを中身リストに登録する

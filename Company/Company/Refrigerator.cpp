@@ -8,7 +8,7 @@ Refrigerator::Refrigerator()
 
 	FirstProcess();
 
-	// 動作タイプ設定
+	// 動作選択
 	ChangeMoveType();
 }
 
@@ -22,17 +22,21 @@ void Refrigerator::Update()
 	string message = "";
 	switch (mMoveType)
 	{
-	
-		break;
 	case Refrigerator::MoveType::MOVE_TYPE_IN:
-		message = "入れるものを入力して下さい。";
+		// 物を入れる
+		AddContent();
 		break;
 	case Refrigerator::MoveType::MOVE_TYPE_OUT:
-		message = "出すものを入力して下さい。";
+		// 中身を出す
+		PutOutContent();
+		break;
+	case Refrigerator::MoveType::MOVE_TYPE_CONFIRMATION:
+		// 中身を確認する
+		ConfirmationContent();
 		break;
 
 	case Refrigerator::MoveType::MOVE_TYPE_NONE:
-	case Refrigerator::MoveType::MOVE_TYPE_CONFIRMATION:
+	
 	default:
 		break;
 	}
@@ -63,18 +67,60 @@ void Refrigerator::Update()
 	}
 }
 
-// 動作タイプの変更
+// 物を入れる
+void Refrigerator::AddContent()
+{
+	cout << "入れるものを入力してください。" << endl;
+
+	string content = "";
+	cin >> content;
+
+	mContents.emplace_back(content);
+	cout << content + "を入れました！" << endl;
+
+	cout << "続けてものを入れますか？" << endl;
+	cout << "はい：1" << endl;
+	cout << "いいえ：２" << endl;
+
+	bool isSelect = false;
+	while (!isSelect)
+	{
+		string select = "";
+		cin >> select;
+
+		if (select != "1" && select != "2")
+		{
+			continue;
+		}
+
+		// 続けてものを入れない場合は動作選択へ
+		if (select == "2")
+		{
+			ChangeMoveType();
+		}
+
+		isSelect = true;
+	}
+}
+
+// 動作選択
 void Refrigerator::ChangeMoveType()
 {
-	cout << "物入れる場合は１" << endl;
-	cout << "物出す場合は２" << endl;
-	cout << "中身を確認する場合は３" << endl;
-	cout << "を入力して下さい。" << endl;
+	cout << "物入れる場合は１"		<< endl;
+	cout << "物出す場合は２"			<< endl;
+	cout << "中身を確認する場合は３"	<< endl;
+	cout << "終了する場合はEnd"		<< endl;
+	cout << "を入力して下さい。"		<< endl;
 
 	while (mMoveType == MoveType::MOVE_TYPE_NONE)
 	{
 		string in = "";
 		cin >> in;
+
+		if (End(in))
+		{
+			return;
+		}
 
 		if (in == "1")
 		{

@@ -20,7 +20,14 @@ public:
 	void Update();
 
 private:
-	// 動作タイプの変更
+	// 物を入れる
+	void AddContent();
+	// 中身を出す
+	void PutOutContent();
+	// 中身を確認する
+	void ConfirmationContent();
+
+	// 動作選択
 	void ChangeMoveType();
 	// 冷蔵庫の中身を表示
 	void ShowContents();

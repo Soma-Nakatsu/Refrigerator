@@ -1,7 +1,7 @@
 #include "Utility.h"
 #include "Refrigerator.h"
 
-int main()
+int main(void)
 {
 	Refrigerator refrigerator;
 

@@ -10,16 +10,19 @@ ElectricAppliances::~ElectricAppliances()
 {
 }
 
-void ElectricAppliances::Update()
-{
-}
-
-void ElectricAppliances::FirstProcess()
+// 初期化
+void ElectricAppliances::init()
 {
 	ViewStartString();
 	Start();
 }
 
+// 更新
+void ElectricAppliances::Update()
+{
+}
+
+// 開始判定処理
 void ElectricAppliances::Start()
 {
 	bool isStart = false;
@@ -43,6 +46,7 @@ void ElectricAppliances::Start()
 	cout << mName + "を起動しました。終了する場合はEndと入力して下さい。" << endl;
 }
 
+// 終了判定処理
 bool ElectricAppliances::End(string in)
 {
 	string endText[2];
@@ -57,6 +61,7 @@ bool ElectricAppliances::End(string in)
 	return mIsEnd;
 }
 
+// 開始時に表示する文言表示
 void ElectricAppliances::ViewStartString()
 {
 	cout << mName + "を起動する場合はStartと入力して下さい。" << endl;

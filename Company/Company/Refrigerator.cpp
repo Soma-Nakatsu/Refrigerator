@@ -1,10 +1,14 @@
 #include "Refrigerator.h"
 
+// 冷蔵庫で使用する定数
+static const string NAME		= "冷蔵庫";
+static const string FILE_PATH	= "../Resources/Refrigerator.txt";
+
 Refrigerator::Refrigerator()
 	: mMoveType(MoveType::MOVE_TYPE_NONE)
 	, mContents()
 {
-	mName = "冷蔵庫";
+	mName = NAME;
 
 	// 初期化
 	init();
@@ -12,16 +16,67 @@ Refrigerator::Refrigerator()
 
 Refrigerator::~Refrigerator()
 {
+	// 今のmContentsの内容をテキストに書き込む
+	WriteContents();
+	
 	mContents.clear();
 }
 
 // 初期化
 void Refrigerator::init()
 {
+	// テキストファイルからのセットアップに失敗したら終了する
+	if (!SetupContents())
+	{
+		cout << "セットアップに失敗。終了します。" << endl;
+		mIsEnd = true;
+		return;
+	}
+
 	ElectricAppliances::init();
 
 	// 動作選択
 	ChangeMoveType();
+}
+
+// 冷蔵庫の中身テキストを開く
+bool Refrigerator::SetupContents()
+{
+	ifstream file(FILE_PATH);
+	if (!file)
+	{
+		cout << "ファイル読み込み失敗" << endl;
+		return false;
+	}
+
+	cout << "ファイル読み込み成功" << endl;
+
+	// 内容をmContentsに格納
+	string content = "";
+	while (getline(file, content))
+	{
+		mContents.emplace_back(content);
+	}
+
+	return true;
+}
+
+// 今のmContentsの内容をテキストに書き込む
+void Refrigerator::WriteContents()
+{
+	ofstream file(FILE_PATH);
+	if (!file)
+	{
+		return;
+	}
+
+	// mContentsの内容をテキストに書き込む
+	for (const auto& content : mContents)
+	{
+		file << content << endl;
+	}
+
+	cout << "ファイルへの書き込み終了" << endl;
 }
 
 // 更新
@@ -39,7 +94,7 @@ void Refrigerator::Update()
 		break;
 	case MoveType::MOVE_TYPE_CONFIRMATION:
 		// 中身を確認する
-		ConfirmationContent();
+		ConfirmationContents();
 		break;
 	default:
 		break;
@@ -54,11 +109,11 @@ void Refrigerator::AddContent()
 
 	cout << "入れる物を入力して下さい。" << endl;
 
-	string content = "";
-	cin >> content;
+	string in = "";
+	cin >> in;
 
-	mContents.emplace_back(content);
-	cout << content + "を入れました！" << endl;
+	mContents.emplace_back(in);
+	cout << in + "を入れました！" << endl;
 
 	CheckContinue();
 }
@@ -71,14 +126,14 @@ void Refrigerator::PutOutContent()
 
 	cout << "出す物を入力して下さい。" << endl;
 
-	string target = "";
-	cin >> target;
+	string in = "";
+	cin >> in;
 
-	auto result = find(mContents.begin(), mContents.end(), target);
-	if (result != mContents.end())
+	auto content = find(mContents.begin(), mContents.end(), in);
+	if (content != mContents.end())
 	{
-		mContents.erase(result);
-		cout << target + "を出しました！" << endl;
+		mContents.erase(content);
+		cout << in + "を出しました！" << endl;
 	}
 	else
 	{
@@ -89,7 +144,7 @@ void Refrigerator::PutOutContent()
 }
 
 // 中身を確認する
-void Refrigerator::ConfirmationContent()
+void Refrigerator::ConfirmationContents()
 {
 	// 見やすくする為の空白
 	cout << "" << endl;
@@ -131,15 +186,15 @@ void Refrigerator::CheckContinue()
 	bool isSelect = false;
 	while (!isSelect)
 	{
-		string select = "";
-		cin >> select;
+		string in = "";
+		cin >> in;
 
-		if (select != "1" && select != "2")
+		if (in != "1" && in != "2")
 		{
 			continue;
 		}
 
-		if (select == "2")
+		if (in == "2")
 		{
 			ChangeMoveType();
 		}
@@ -160,6 +215,7 @@ void Refrigerator::ChangeMoveType()
 	cout << "物を入れる：1" << endl;
 	cout << "中身を出す：2" << endl;
 	cout << "中身を確認：3" << endl;
+	cout << "終了する　：End" << endl;
 
 	while (mMoveType == MoveType::MOVE_TYPE_NONE)
 	{

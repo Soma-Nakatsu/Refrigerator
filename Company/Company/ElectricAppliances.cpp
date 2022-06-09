@@ -43,7 +43,7 @@ void ElectricAppliances::Start()
 		isStart = true;
 	}
 
-	cout << mName + "を起動しました。終了する場合はEndと入力して下さい。" << endl;
+	cout << mName + "を起動しました。" << endl;
 }
 
 // 終了判定処理

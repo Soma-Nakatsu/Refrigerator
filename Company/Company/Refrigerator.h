@@ -24,12 +24,20 @@ public:
 	void Update() override;
 
 private:
+	// 初期化
+	void init() override;
+
+	// テキストファイルからmContentsの内容を設定
+	bool SetupContents();
+	// 今のmContentsの内容をテキストに書き込む
+	void WriteContents();
+
 	// 物を入れる
 	void AddContent();
 	// 中身を出す
 	void PutOutContent();
 	// 中身を確認する
-	void ConfirmationContent();
+	void ConfirmationContents();
 
 	// 続けて操作を行うかのチェック
 	void CheckContinue();
@@ -37,12 +45,8 @@ private:
 	void ChangeMoveType();
 
 private:
-	// 初期化
-	void init() override;
-
-private:
-	MoveType		mMoveType;	// 動作タイプ
-	vector<string>	mContents;	// 冷蔵庫の中身リスト
+	MoveType		mMoveType;		// 動作タイプ
+	vector<string>	mContents;		// 冷蔵庫の中身リスト
 };
 
 // 入れたものを中身リストに登録する

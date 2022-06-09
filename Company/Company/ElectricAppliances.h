@@ -12,16 +12,17 @@ public:
 	// 更新
 	virtual void Update();
 
-	// 開始判定処理
-	void Start();
-	// 終了判定処理
-	bool End(string in);
-
 	bool ISEnd() { return mIsEnd; }
 
 protected:
 	// 初期化
 	virtual void init();
+
+	// 開始判定処理
+	void Start();
+	// 終了判定処理
+	bool End(string in);
+
 	// 開始時に表示する文言表示
 	void ViewStartString();
 

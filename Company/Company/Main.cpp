@@ -10,5 +10,7 @@ int main(void)
 		refrigerator.Update();
 	}
 
+	// Œ©‚â‚·‚­‚·‚éˆ×‚Ì‹ó”’
+	cout << "" << endl;
 	std::cout << "ƒvƒƒOƒ‰ƒ€I—¹" << std::endl;
 };

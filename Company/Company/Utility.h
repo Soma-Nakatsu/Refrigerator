@@ -5,13 +5,20 @@
 
 using namespace std;
 
-namespace Utility
+// 配列の要素数をカウントする
+template<typename T, size_t size>
+inline int GetArreySize(const T(&/*arrey*/)[size])
 {
-	// 配列の要素数をカウントする
-	template<typename T, size_t SIZE>
-	static int GetArreySize(const T(&/*arrey*/)[SIZE])
-	{ 
-		// arreyの要素数を返す
-		return (int)SIZE;
-	}
+	// arreyの要素数を返す
+	return (int)size;
+}
+
+// 文字列を数値に変換
+inline int ConvertString(string str)
+{
+	return atoi(str.c_str());
+}
+inline int ConvertString(const char* str)
+{
+	return atoi(str);
 }
